@@ -8,10 +8,10 @@ from google.oauth2 import service_account
 
 def transform_and_load_cleaned_data_to_gcs():
     date = pd.Timestamp.today().strftime("%Y-%m-%d")
-    # load_dotenv(dotenv_path=os.path.join(
-    #     os.path.dirname(__file__),
-    #     "../config/.env"
-    # ))
+    load_dotenv(dotenv_path=os.path.join(
+        os.path.dirname(__file__),
+        "../config/.env"
+    ))
 
     ## Extract raw data from GSC
     # Config
@@ -49,6 +49,7 @@ def transform_and_load_cleaned_data_to_gcs():
     raw_data["month"] = raw_data["date_time"].dt.month
     raw_data["latitude"] = raw_data["latitude"].round(2)
     raw_data["longitude"] = raw_data["longitude"].round(2)
+    raw_data["wind_speed"] = raw_data["wind_speed"].fillna(0.0)
     cleaned_data = raw_data.dropna(subset=["date_time", "latitude", "longitude"])
     cleaned_data["date_time"] = cleaned_data["date_time"].dt.strftime('%Y-%m-%d %H:%M:%S')
 

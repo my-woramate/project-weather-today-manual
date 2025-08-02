@@ -7,10 +7,10 @@ from google.oauth2 import service_account
 
 def load_gcs_to_bq():
     date = pd.Timestamp.today().strftime("%Y-%m-%d")
-    # load_dotenv(dotenv_path=os.path.join(
-    #     os.path.dirname(__file__),
-    #     "../config/.env"
-    # ))
+    load_dotenv(dotenv_path=os.path.join(
+        os.path.dirname(__file__),
+        "../config/.env"
+    ))
 
     GCP_PROJECT_ID = "warm-helix-412914"
     BUCKET_NAME = "lake_project"

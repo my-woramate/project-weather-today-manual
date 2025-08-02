@@ -10,13 +10,14 @@ from google.oauth2 import service_account
 
 def extract_from_api():
     date = pd.Timestamp.today().strftime("%Y-%m-%d")
-    # load_dotenv(dotenv_path=os.path.join(
-    #     os.path.dirname(__file__),
-    #     "../config/.env"
-    # ))
+    load_dotenv(dotenv_path=os.path.join(
+        os.path.dirname(__file__),
+        "../config/.env"
+    ))
 
     ## Extract data from API
     province = []
+    station_name = []
     latitude = []
     longitude = []
     date_time = []
@@ -35,6 +36,7 @@ def extract_from_api():
             for stations in station.findall("Station"):
                 # scrap data to variable
                 province_scrap = stations.find("Province")
+                station_name_scrap = stations.find("StationNameThai")
                 latitude_scrap = stations.find("Latitude")
                 longitude_scrap = stations.find("Longitude")
                 
@@ -47,6 +49,7 @@ def extract_from_api():
                 
                 # append data to list
                 province.append(province_scrap.text)
+                station_name.append(station_name_scrap.text)
                 latitude.append(latitude_scrap.text)
                 longitude.append(longitude_scrap.text)
                 date_time.append(date_time_scrap.text)
@@ -61,6 +64,7 @@ def extract_from_api():
 
     raw_data = pd.DataFrame({
         "province": province,
+        "station_name": station_name,
         "latitude": latitude,
         "longitude": longitude,
         "date_time": date_time,

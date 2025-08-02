@@ -1,3 +1,6 @@
+run:
+	poetry run python dags/etl_pipeline.py
+
 build:
 	docker compose build
 
