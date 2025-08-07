@@ -1,6 +1,15 @@
 run:
 	poetry run python dags/etl_pipeline.py
 
+e:
+	poetry run python scripts/extract.py
+
+t:
+	poetry run python scripts/transform.py
+
+l:
+	poetry run python scripts/load.py
+
 build:
 	docker compose build
 
